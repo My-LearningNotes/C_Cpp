@@ -10,7 +10,9 @@ Welcome to C/C++ Note's documentation!
     :maxdepth: 2
     :caption: Contents:
 
+    compiler/index
     pre-processing/index
+
 
 Indices and tables
 ==================
