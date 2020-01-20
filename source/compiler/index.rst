@@ -4,4 +4,5 @@
 .. toctree::
 
     calling_convention
+    function_decorated_name
 
