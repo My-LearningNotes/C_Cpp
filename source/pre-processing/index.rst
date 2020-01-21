@@ -3,4 +3,5 @@
 
 .. toctree::
 
+    conditional_compilation
     __cplusplus
