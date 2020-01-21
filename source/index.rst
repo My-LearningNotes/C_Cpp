@@ -12,6 +12,7 @@ Welcome to C/C++ Note's documentation!
 
     compiler/index
     pre-processing/index
+    c_cpp_hybrid/index
 
 
 Indices and tables
