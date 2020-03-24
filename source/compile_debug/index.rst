@@ -5,4 +5,5 @@
 
     calling_convention
     function_decorated_name
+    GCC优化级别以及GDB调试级别
 

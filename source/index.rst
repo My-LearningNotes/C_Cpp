@@ -10,7 +10,7 @@ Welcome to C/C++ Note's documentation!
     :maxdepth: 2
     :caption: Contents:
 
-    compiler/index
+    compile_debug/index
     pre-processing/index
     c_cpp_hybrid/index
 
