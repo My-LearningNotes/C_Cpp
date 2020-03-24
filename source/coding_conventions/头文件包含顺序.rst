@@ -1,0 +1,126 @@
+C++头文件的包含顺序
+===================
+
+为了加强可读性和避免隐藏依赖，《Google C++ Style Guide》推荐使用以下的头文件包含顺序(对于xxx.cpp): 
+
+    -  **xxx.h**
+
+    -  **C系统文件**
+
+    -  **C++系统文件**
+
+    -  **其它库的头文件**
+
+    -  **本项目内的头文件**
+
+.. tip::
+
+    -  不同类型的头文件之间空一行
+    -  同一类型的头文件中，根据首字母(忽略大小写)排序(在满足依赖关系的前提下)
+
+这样的顺序，其背后的原则是:
+
+- **为了避免隐藏依赖，应该首先包含首选的头文件**\ (即\ ``xxx.cpp``\ 文件对应的头文件\ ``xxx.h``)
+
+.. note::
+
+    什么叫避免隐藏依赖？
+
+    我们希望每个头文件都可以独立编译，即一个头文件中已经包含了所有其依赖的其它头文件。
+    这样，我们包含一个头文件时，不需要再去解决这个头文件的依赖问题。
+
+首先包含\ *xxx.h*\ 头文件，可以避免\ *xxx.h*\ 头文件隐式的依赖其它的头文件。
+
+例如:
+
+.. code-block:: c++
+
+    // A.H
+
+    #ifndef A_H
+    #define A_H
+
+    class A
+    {
+    public:
+        A() {};
+        ~A() {};
+
+    private:
+        std::vector<int> m_nArray();
+    };
+
+    #endif
+
+    // A.cpp
+
+    #include <vector>
+    #include "A.h"
+
+这两个文件可以通过编译，不过问题是，头文件\ ``A.h``\ 隐式依赖头文件\ ``vector``\ 。
+
+如果调换一下两者的顺序，则无法通过编译。
+还有就是，如果第三方想使用\ ``A.h``\ 的话，还需要同时包含\ ``vector``\ 头文件，并且顺序不能错。
+这就是隐藏依赖带来的问题。
+
+要解决这个问题，先要发现它。
+方法就是按照标准头文件顺序，则无法通过编译，于是在\ ``A.h``\ 中添加\ ``#include <vector>``\ 。
+
+.. code-block:: c++
+    :emphasize-lines: 5
+
+    // A.h
+
+    #ifndef A_H
+    #define A_H
+    #include <vector>
+
+    class A
+    {
+    public:
+        A() {}
+        ~A() {}
+
+    private:
+        std::vector<int> m_nArrary();
+    };
+
+    // A.cpp
+
+    #inclue "A.h"
+
+- **除了首选头文件之外，遵循的是从一般到特殊的原则**
+
+- **在包含头文件时应该加上头文件所在的工程的文件夹名**\ ，即假如你有这样一个工程base，里面有一个logging.h，那么外部包含这个头文件应该这样写:
+
+.. code-block:: c++
+    :emphasize-lines: 1
+
+    #include "base/logging.h"  // 而不是#include "logging.h"
+
+
+.. note::
+
+   之所以要讲头文件所在的工程目录列出，作用应该和命名空间一样的，就是为了区分不小心造成的文件重名。
+
+
+示例
+----
+
+例如，假设有一个cpp文件是\ ``google-awesome-project/src/foo/internal/fooserver.cpp``\ ，那么它所包含的头文件的顺序如下:
+
+.. code-block:: c++
+    :emphasize-lines: 1, 3, 4, 6, 7, 9, 10, 11
+
+    #include "foo/public/fooserver.h"  // Preferred location
+
+    #include <sys/types.h>
+    #include <unistd.h>
+
+    #include <hash_map>
+    #include <vector>
+
+    #include "base/basictypes.h"
+    #include "base/commandlineflags.h"
+    #include "foo/public/bar.h"
+
