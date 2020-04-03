@@ -14,6 +14,7 @@ Welcome to C/C++ Note's documentation!
     compile_debug/index
     pre-processing/index
     c_cpp_hybrid/index
+    Advanced/index
 
 
 Indices and tables
