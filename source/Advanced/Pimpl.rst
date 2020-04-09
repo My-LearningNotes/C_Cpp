@@ -235,9 +235,20 @@ handle class成员函数的每次调用都必须通过implementation class，这
 可以使用下图来说明Pimpl方法在以上Book类设计的作用：
 
 .. figure:: _static/Pimpl_2.png
-   :alt: 
+    :alt: 
 
-由于pImpl解除了接口与实现之间的耦合关系，从而降低了文件间的编译依赖关系，pImpl也因此常被称为"编译期防火墙"。
+由于pImpl解除了接口与实现之间的耦合关系，从而降低了文件间的编译依赖关系，Pimpl也因此常被称为\ **"编译期防火墙"**\ 。
+
+假设我们有A.h(class A)，并且有A/B/C/D这4个.cpp文件引用它，它们的关系如下图：
+
+.. figure:: _static/Pimpl_3.png
+    :alt:
+
+如果在A.h中对class A做了修改，那么A/B/C/D这4个.cpp文件全部都要重新编译。
+这里只有4个文件需要重新编译，如果有五十个，一百个呢？
+
+使用Pimpl，使用前置声明(forward declaration)声明了一个指向具体实现类的指针，
+当具体实现类发生修改时，这里通过指针引用它的地方不需要重新编译，减少了编译依赖，节省了编译时间。
 
 
 Example
