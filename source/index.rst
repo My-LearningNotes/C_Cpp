@@ -13,6 +13,7 @@ Welcome to C/C++ Note's documentation!
     coding_conventions/index
     compile_debug/index
     pre-processing/index
+    basic/index
     c_cpp_hybrid/index
     Advanced/index
 
