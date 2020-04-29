@@ -16,6 +16,7 @@ Welcome to C/C++ Note's documentation!
     basic/index
     c_cpp_hybrid/index
     Advanced/index
+    generic_programming/index
 
 
 Indices and tables
